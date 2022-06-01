@@ -2,6 +2,7 @@ import discord
 import os
 import web_scrape
 import xur_scrape
+import light_scrape
 
 from dotenv import load_dotenv
 from os import getenv
@@ -15,6 +16,7 @@ web_get = web_scrape.BungieNews()
 no_result_message = 'none'
 
 xur_get = xur_scrape.XurNews()
+light_get = light_scrape.LightNews()
 
 # discord event to check when the bot is online 
 @client.event
@@ -60,6 +62,22 @@ async def on_message(message):
     if len(links) > 0:
       for link in links:
        await message.channel.send(link)
+    else:
+      await message.channel.send(no_result_message)
+      
+  if f'.xur_inventory2' in message_content:
+    result_links = xur_get.search_inventory()
+    links = xur_get.send_inventory(result_links)
+    
+    if len(links) > 0:
+      for link in links:
+        r = light_get.search_link(link)
+        l = light_get.send_link(r)
+        if len(links) > 0:
+          for l2 in l:
+            await message.channel.send(l2)
+        else:
+          await message.channel.send(no_result_message)
     else:
       await message.channel.send(no_result_message)
 
