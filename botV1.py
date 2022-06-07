@@ -21,6 +21,7 @@ light_get = light_scrape.LightNews()
 # discord event to check when the bot is online 
 @client.event
 async def on_ready():
+  await client.change_presence(activity=discord.Game(name="Type .help for commands"))
   print(f'{client.user} is now online!')
   
 @client.event
@@ -35,9 +36,9 @@ async def on_message(message):
         
 
     
-  if f'.news' in message_content:
+  if f'.twab' in message_content:
     result_links = web_get.search_link()
-    links = web_get.send_link(result_links)
+    links = web_get.send_link(result_links, 1)
     
     if len(links) > 0:
       for link in links:
@@ -45,17 +46,28 @@ async def on_message(message):
     else:
       await message.channel.send(no_result_message)
       
-  if f'.xur_inventory' in message_content:
+  if f'.hotfix' in message_content:
+    result_links = web_get.search_link()
+    links = web_get.send_link(result_links, 2)
+    
+    if len(links) > 0:
+      for link in links:
+       await message.channel.send(link)
+    else:
+      await message.channel.send(no_result_message)
+      
+  if f'.inventory' in message_content:
     result_links = xur_get.search_inventory()
     links = xur_get.send_inventory(result_links)
     
     if len(links) > 0:
+      await message.channel.send('Xur\'s inventory this week:')
       for link in links:
        await message.channel.send(link)
     else:
       await message.channel.send(no_result_message)
       
-  if f'.xur_location' in message_content:
+  if f'.xur' in message_content:
     result_links = xur_get.search_location()
     links = xur_get.send_location(result_links)
     
@@ -65,7 +77,7 @@ async def on_message(message):
     else:
       await message.channel.send(no_result_message)
       
-  if f'.xur_inventory2' in message_content:
+  if f'.inventory_detail' in message_content:
     result_links = xur_get.search_inventory()
     links = xur_get.send_inventory(result_links)
     
@@ -80,6 +92,14 @@ async def on_message(message):
           await message.channel.send(no_result_message)
     else:
       await message.channel.send(no_result_message)
+      
+  if f'.help' in message_content:
+    await message.channel.send("List of commands:\n")
+    await message.channel.send(".twab : latest this week at bungie update")
+    await message.channel.send(".hotfix : latest destiny 2 hotfix")
+    await message.channel.send(".xur : Xur's location for current week")
+    await message.channel.send(".inventory : Xur's current inventory")
+    await message.channel.send(".inventory_detail : light.gg links for Xur's inventory")
 
 # get bot token from .env and run client
 # has to be at the end of the file

@@ -17,13 +17,20 @@ class BungieNews:
         result_links = soup.findAll('a', {"class": "news-item"})
         return result_links
     
-    def send_link(self, result_links): 
-        #print("start")
+    def send_link(self, result_links, type): 
+        print("type: " + str(type))
         send_link = set()
         for link in result_links:
             text = link.text.lower()
-            #print(text)
-            if 'this week at bungie' or 'destiny 2' in text:  
-                send_link.add('https://www.bungie.net' + link.get('href'))
-                break
+            
+            if type == 1:
+                print("1")
+                if 'this week at bungie'in text:  
+                    send_link.add('https://www.bungie.net' + link.get('href'))
+                    break 
+            if type == 2:
+                print("2")
+                if 'destiny 2 hotfix' in text:  
+                    send_link.add('https://www.bungie.net' + link.get('href'))
+                    break 
         return send_link
