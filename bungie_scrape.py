@@ -11,18 +11,21 @@ class BungieNews:
 
         response = requests.get(self.url, headers = self.headers)
         content = response.content
-        # pase the html and pull the data we want 
+
         soup = BeautifulSoup(content, 'html.parser')
         
+        #returns all hyperlinks with class atribute 'news-item'
         result_links = soup.findAll('a', {"class": "news-item"})
         return result_links
     
+    #returns news links
     def send_link(self, result_links, type): 
         print("type: " + str(type))
         send_link = set()
         for link in result_links:
             text = link.text.lower()
             
+            #checks if type to see if we are looking for current twab or hotfix
             if type == 1:
                 print("1")
                 if 'this week at bungie'in text:  
