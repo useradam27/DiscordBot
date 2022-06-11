@@ -27,12 +27,10 @@ class BungieNews:
             
             #checks if type to see if we are looking for current twab or hotfix
             if type == 1:
-                print("1")
                 if 'this week at bungie'in text:  
                     send_link.add('https://www.bungie.net' + link.get('href'))
                     break 
             if type == 2:
-                print("2")
                 if 'destiny 2 hotfix' in text:  
                     send_link.add('https://www.bungie.net' + link.get('href'))
                     break 

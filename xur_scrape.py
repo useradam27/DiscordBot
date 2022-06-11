@@ -46,6 +46,5 @@ class XurNews:
         send_link = set()
         for link in result_links:
             text = link.text.lower()
-            print(text)
             send_link.add(text)
         return send_link

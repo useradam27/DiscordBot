@@ -13,18 +13,18 @@ load_dotenv()
 client = discord.Client()
 
 web_get = bungie_scrape.BungieNews()
-
 xur_get = xur_scrape.XurNews()
 light_get = light_scrape.LightNews()
 
 #update bot status
 @client.event
 async def on_ready():
+  print(f'{client.user} is online!')
   await client.change_presence(activity=discord.Game(name="Type .help for commands"))
 
 #main input event  
 @client.event
-async def on_input(input):
+async def on_message(input):
   if input.author == client.user:
         return
    
@@ -35,7 +35,7 @@ async def on_input(input):
   if input.content.startswith(f'.hello'):
         await input.channel.send("Hello!!!")
         
-
+  
   #searches bungie news website for twab or hotfix update  
   if f'.twab' in input_content:
     results = web_get.search_link()
@@ -46,7 +46,7 @@ async def on_input(input):
        await input.channel.send(link)
     else:
       await input.channel.send('no results')
-      
+     
   if f'.hotfix' in input_content:
     results = web_get.search_link()
     links = web_get.send_link(results, 2)
