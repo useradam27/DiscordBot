@@ -4,6 +4,8 @@ import bungie_scrape
 import xur_scrape
 import light_scrape
 
+from ping import ping
+
 #used for reading token from .env file, not needed for replit hosting
 from dotenv import load_dotenv
 from os import getenv
@@ -115,6 +117,9 @@ async def on_message(input):
     await input.channel.send(".inventory : Xur's current inventory")
     await input.channel.send(".inventory_detail : light.gg links for Xur's inventory")
 
+#runs web server to keep discord bot alive
+ping()
+    
 #get token and run client
 #client.run(os.getenv('TOKEN'))  #uncomment to run with .env
 client.run(my_secret)
