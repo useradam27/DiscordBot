@@ -20,7 +20,6 @@ class BungieNews:
     
     #returns news links
     def send_link(self, result_links, type): 
-        print("type: " + str(type))
         send_link = set()
         for link in result_links:
             text = link.text.lower()

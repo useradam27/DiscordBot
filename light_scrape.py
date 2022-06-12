@@ -23,8 +23,6 @@ class LightNews:
     def send_link(self, result_links): 
         send_link = set()
         for link in result_links:
-            text = link.text.lower()
-
             #adds href attribute to base link
             send_link.add('https://www.light.gg' + link.get('href'))
             break

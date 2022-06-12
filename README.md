@@ -4,6 +4,8 @@ Code for discord bot that gets various information for Destiny 2 and posts it in
 
 Adapted from tutorial: https://medium.com/codex/learn-web-scraping-the-fun-way-with-a-discord-bot-704d3422a6a2
 
+Hosted through replit.
+
 # To Do
 
 Test cases could be implemented to test input.

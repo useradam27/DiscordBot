@@ -4,6 +4,7 @@ import bungie_scrape
 import xur_scrape
 import light_scrape
 
+#used for reading token from .env file, not needed for replit hosting
 from dotenv import load_dotenv
 from os import getenv
 
@@ -15,6 +16,9 @@ client = discord.Client()
 web_get = bungie_scrape.BungieNews()
 xur_get = xur_scrape.XurNews()
 light_get = light_scrape.LightNews()
+
+#replit env variable
+my_secret = os.environ['TOKEN']
 
 #update bot status
 @client.event
@@ -112,4 +116,5 @@ async def on_message(input):
     await input.channel.send(".inventory_detail : light.gg links for Xur's inventory")
 
 #get token and run client
-client.run(os.getenv('TOKEN'))
+#client.run(os.getenv('TOKEN'))  #uncomment to run with .env
+client.run(my_secret)
